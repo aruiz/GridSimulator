@@ -19,12 +19,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
 import sys
+from datetime import datetime
+from dateutil import parser
 
 rawcurve = json.load(open(sys.argv[1]))
 
-initialdate = rawcurve[0]["datetime"]
-hourysamples = [sample["value"] for sample in rawcurve]
+hourysamples = {}
+for sample in rawcurve:
+    hour = parser.parse(sample["datetime"]).strftime("%H:%M:%S")
+    l = hourysamples.get(hour, [])
+    l.append(sample["value"])
+    hourysamples[hour] = l
 
+dayaverage = { 'fill': 'tozeroy', 'type': 'scatter', 'x': [], 'y': [] }
+for k,v in hourysamples.items():    
+    avg = 0
+    length = len(v)
+    for i in v:
+        avg = avg + i/length
+    dayaverage["x"].append(k)
+    dayaverage["y"].append(avg)
 
-
-print(json.dumps({"samples": hourysamples, "start": initialdate}))
+print(json.dumps(dayaverage))

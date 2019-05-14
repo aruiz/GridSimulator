@@ -1,0 +1,18 @@
+<html>
+  <meta charset="UTF-8"> 
+  <head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+      function onload() {
+        $.getJSON("/consumo.json", function (data) {
+          Plotly.newPlot('consumo', [data], {}, {showSendToCloud:true});
+        });
+      }
+    </script>
+  </head>
+  <body onload="onload();">
+  <div id="consumo" style="width: 100%"></div>
+  </body>
+</html>
+
