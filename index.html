@@ -6,6 +6,7 @@
     <script type="text/javascript">
       function onload() {
         $.getJSON("/consumo.json", function (data) {
+          var data = {'fill': 'tozeroy', 'type': 'scatter', 'x': data.x, 'y': data.y };
           Plotly.newPlot('consumo', [data], {}, {showSendToCloud:true});
         });
       }

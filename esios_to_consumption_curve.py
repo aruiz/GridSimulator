@@ -31,7 +31,7 @@ for sample in rawcurve:
     l.append(sample["value"])
     hourysamples[hour] = l
 
-dayaverage = { 'fill': 'tozeroy', 'type': 'scatter', 'x': [], 'y': [] }
+dayaverage = { 'x': [], 'y': [] }
 for k,v in hourysamples.items():    
     avg = 0
     length = len(v)
